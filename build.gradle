@@ -1,0 +1,163 @@
+plugins {
+    id 'java' apply false
+    id 'org.springframework.boot' version '3.2.3' apply false
+    id 'io.spring.dependency-management' version '1.1.4' apply false
+}
+
+allprojects {
+    group = 'com.astrology'
+    version = '1.0.0'
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.maven.apache.org/maven2' }
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    dependencies {
+        // Swiss Ephemeris pure Java port
+        implementation 'de.thmac:swisseph:2.10.03'
+
+        // Apache Commons Math for astronomical calculations
+        implementation 'org.apache.commons:commons-math3:3.6.1'
+
+        // Jackson for JSON
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
+
+        // Logging
+        implementation 'org.slf4j:slf4j-api:2.0.11'
+        implementation 'ch.qos.logback:logback-classic:1.4.14'
+
+        // Testing
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+        testImplementation 'org.assertj:assertj-core:3.25.1'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events 'passed', 'skipped', 'failed'
+        }
+    }
+
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+}
+
+// Module-specific configurations
+project(':astrology-api') {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencies {
+        implementation project(':astrology-core')
+        implementation project(':astrology-planets')
+        implementation project(':astrology-divisional')
+        implementation project(':astrology-dasha')
+        implementation project(':astrology-yoga')
+        implementation project(':astrology-strength')
+        implementation project(':astrology-transit')
+        implementation project(':astrology-report')
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+    }
+}
+
+project(':astrology-planets') {
+    dependencies {
+        implementation project(':astrology-core')
+    }
+}
+
+project(':astrology-divisional') {
+    dependencies {
+        implementation project(':astrology-core')
+        implementation project(':astrology-planets')
+    }
+}
+
+project(':astrology-dasha') {
+    dependencies {
+        implementation project(':astrology-core')
+        implementation project(':astrology-planets')
+    }
+}
+
+project(':astrology-yoga') {
+    dependencies {
+        implementation project(':astrology-core')
+        implementation project(':astrology-planets')
+        implementation project(':astrology-divisional')
+    }
+}
+
+project(':astrology-strength') {
+    dependencies {
+        implementation project(':astrology-core')
+        implementation project(':astrology-planets')
+        implementation project(':astrology-divisional')
+    }
+}
+
+project(':astrology-transit') {
+    dependencies {
+        implementation project(':astrology-core')
+        implementation project(':astrology-planets')
+        implementation project(':astrology-strength')
+    }
+}
+
+project(':astrology-report') {
+    dependencies {
+        implementation project(':astrology-core')
+        implementation project(':astrology-planets')
+        implementation project(':astrology-divisional')
+        implementation project(':astrology-dasha')
+        implementation project(':astrology-yoga')
+        implementation project(':astrology-strength')
+        implementation project(':astrology-transit')
+        // PDF generation
+        implementation 'org.apache.pdfbox:pdfbox:3.0.1'
+        implementation 'org.apache.pdfbox:fontbox:3.0.1'
+        // HTML report
+        implementation 'org.freemarker:freemarker:2.3.32'
+    }
+}
+
+project(':astrology-cli') {
+    dependencies {
+        implementation project(':astrology-core')
+        implementation project(':astrology-planets')
+        implementation project(':astrology-divisional')
+        implementation project(':astrology-dasha')
+        implementation project(':astrology-yoga')
+        implementation project(':astrology-strength')
+        implementation project(':astrology-transit')
+        implementation project(':astrology-report')
+        implementation 'info.picocli:picocli:4.7.5'
+    }
+
+    jar {
+        manifest {
+            attributes 'Main-Class': 'com.astrology.cli.AstrologyCliApp'
+        }
+        from {
+            configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.astrology</groupId>
+        <artifactId>vedic-astrology</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>astrology-report</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.astrology</groupId>
+            <artifactId>astrology-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.astrology</groupId>
+            <artifactId>astrology-planets</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.astrology</groupId>
+            <artifactId>astrology-divisional</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.astrology</groupId>
+            <artifactId>astrology-dasha</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.astrology</groupId>
+            <artifactId>astrology-yoga</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.astrology</groupId>
+            <artifactId>astrology-strength</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.astrology</groupId>
+            <artifactId>astrology-transit</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- PDF Generation -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>fontbox</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+        <!-- HTML Generation -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.32</version>
+        </dependency>
+
+        <!-- JSON Generation -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.16.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.16.1</version>
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

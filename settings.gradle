@@ -1,0 +1,12 @@
+rootProject.name = 'vedic-astrology'
+
+include 'astrology-core'
+include 'astrology-planets'
+include 'astrology-divisional'
+include 'astrology-dasha'
+include 'astrology-yoga'
+include 'astrology-strength'
+include 'astrology-transit'
+include 'astrology-report'
+include 'astrology-api'
+include 'astrology-cli'

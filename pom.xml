@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.astrology</groupId>
+    <artifactId>vedic-astrology</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>Vedic Astrology Engine</name>
+    <description>Production-quality Vedic Astrology Engine with Swiss Ephemeris integration</description>
+
+    <modules>
+        <module>astrology-cli</module>
+        <module>astrology-core</module>
+        <module>astrology-planets</module>
+        <module>astrology-divisional</module>
+        <module>astrology-dasha</module>
+        <module>astrology-yoga</module>
+        <module>astrology-strength</module>
+        <module>astrology-transit</module>
+        <module>astrology-report</module>
+        <module>astrology-api</module>
+    </modules>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Dependency versions -->
+        <swisseph.version>2.10.03</swisseph.version>
+        <commons-math3.version>3.6.1</commons-math3.version>
+        <jackson.version>2.16.1</jackson.version>
+        <slf4j.version>2.0.11</slf4j.version>
+        <logback.version>1.4.14</logback.version>
+        <junit.version>5.10.1</junit.version>
+        <assertj.version>3.25.1</assertj.version>
+        <pdfbox.version>3.0.1</pdfbox.version>
+        <freemarker.version>2.3.32</freemarker.version>
+        <picocli.version>4.7.5</picocli.version>
+        <spring-boot.version>3.2.3</spring-boot.version>
+        <springdoc.version>2.3.0</springdoc.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Internal modules -->
+            <dependency>
+                <groupId>com.astrology</groupId>
+                <artifactId>astrology-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.astrology</groupId>
+                <artifactId>astrology-planets</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.astrology</groupId>
+                <artifactId>astrology-divisional</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.astrology</groupId>
+                <artifactId>astrology-dasha</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.astrology</groupId>
+                <artifactId>astrology-yoga</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.astrology</groupId>
+                <artifactId>astrology-strength</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.astrology</groupId>
+                <artifactId>astrology-transit</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.astrology</groupId>
+                <artifactId>astrology-report</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Swiss Ephemeris pure Java (via JitPack) -->
+            <dependency>
+                <groupId>com.github.krishnact</groupId>
+                <artifactId>swisseph</artifactId>
+                <version>master-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Apache Commons Math -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math3</artifactId>
+                <version>${commons-math3.version}</version>
+            </dependency>
+
+            <!-- Jackson JSON -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Logging -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <!-- PDF Generation -->
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>${pdfbox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>fontbox</artifactId>
+                <version>${pdfbox.version}</version>
+            </dependency>
+
+            <!-- HTML Templating -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+
+            <!-- CLI -->
+            <dependency>
+                <groupId>info.picocli</groupId>
+                <artifactId>picocli</artifactId>
+                <version>${picocli.version}</version>
+            </dependency>
+
+            <!-- Spring Boot BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Testing -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Common dependencies for ALL modules -->
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.12.1</version>
+                    <configuration>
+                        <source>21</source>
+                        <target>21</target>
+                        <encoding>UTF-8</encoding>
+                        <compilerArgs>
+                            <arg>--enable-preview</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.2.5</version>
+                    <configuration>
+                        <argLine>--enable-preview</argLine>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.6.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+</project>
+

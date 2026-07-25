@@ -1,0 +1,12 @@
+package com.astrology.yoga.raja;
+import com.astrology.yoga.*;
+import com.astrology.core.*;
+import com.astrology.planets.BirthChart;
+import java.util.List;
+public class RajaYoga16 implements YogaRule {
+    public String getYogaName() { return "RajaYoga16"; }
+    public Yoga.YogaCategory getCategory() { return Yoga.YogaCategory.RAJA_YOGA; }
+    public Yoga check(BirthChart chart) {
+        return new Yoga("RajaYoga16", "RajaYoga16", getCategory(), "Raja yoga combo", "Power and success", List.of(), List.of(), 1.0, true, "Formed");
+    }
+}
